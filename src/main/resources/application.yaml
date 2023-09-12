@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    password: ${DATASOURCE_PASSWORD:q1w2e3r4}
+    username: ${DATASOURCE_USERNAME:postgres}
+    url:  ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/security_test}
+  jpa:
+    open-in-view: false
+    show-sql: true
+  liquibase:
+    change-log: classpath:changelog/changelog-master.yaml
+  config:
+    import: classpath:properties/jwt-properties.yaml
+aspect:
+  timing:
+    enabled: true

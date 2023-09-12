@@ -1,0 +1,6 @@
+databaseChangeLog:
+  - include:
+      file: changelog/sql/changeset_0001_create_tables.sql
+  - include:
+      file: changelog/sql/changeset_0002_init_roles_authorities_data.sql
+encoding: "UTF-8"

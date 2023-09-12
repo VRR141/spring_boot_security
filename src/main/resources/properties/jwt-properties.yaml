@@ -1,0 +1,10 @@
+jwt:
+ secret: ${JWT_SECRET:qwerty123456}
+ lifeTime: ${JWT_LIFE_TIME:60} #minutes
+ authorities-header: Authorities
+ client-identifier-header: client_identifier
+ issuer: auth_service
+ login-header: login
+ bearer-length: 7
+ bearer-string: Bearer
+ auth-header: Authorization
