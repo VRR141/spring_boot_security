@@ -1,4 +1,4 @@
-package com.example.spring_boot_security.security.jwt;
+package com.example.spring_boot_security.security.jwt.impl;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

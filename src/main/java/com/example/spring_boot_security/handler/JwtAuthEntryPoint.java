@@ -1,4 +1,4 @@
-package com.example.spring_boot_security.security;
+package com.example.spring_boot_security.handler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,11 +12,10 @@ import java.io.IOException;
 
 @Slf4j
 @Component
-public class JwtAuthEntryPoint implements AuthenticationEntryPoint {
+public class JwtAuthEntryPoint implements AuthenticationEntryPoint{
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-//        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
-        log.warn("Work jwt auth entry point {}", authException.getClass());
+        log.warn("Work jwt auth entry point {} {}.class", authException.getMessage(), authException.getClass().getSimpleName());
     }
 }

@@ -1,4 +1,4 @@
-package com.example.spring_boot_security.security.jwt;
+package com.example.spring_boot_security.security.jwt.impl;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -8,6 +8,7 @@ import com.example.spring_boot_security.aop.ExecutionTime;
 import com.example.spring_boot_security.domain.Authorities;
 import com.example.spring_boot_security.properties.JwtProperties;
 import com.example.spring_boot_security.security.AuthorizedUser;
+import com.example.spring_boot_security.security.jwt.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
