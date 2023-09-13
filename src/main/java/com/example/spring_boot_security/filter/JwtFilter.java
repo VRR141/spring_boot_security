@@ -35,6 +35,9 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
             String authHeader = request.getHeader(jwtProperties.getAuthHeader());
+            if (authHeader == null || (authHeader.length() < jwtProperties.getBearerLength())){
+                throw new JWTVerificationException("JWT not present");
+            }
             if (StringUtils.hasText(authHeader) && authHeader.startsWith(jwtProperties.getBearerString())) {
                 String jwt = authHeader.substring(jwtProperties.getBearerLength());
 
@@ -50,7 +53,6 @@ public class JwtFilter extends OncePerRequestFilter {
             }
             filterChain.doFilter(request, response);
         } catch (JWTVerificationException ex) {
-            System.out.println("IM HERE");
             handlerExceptionResolver.resolveException(request, response, null, ex);
         }
     }
