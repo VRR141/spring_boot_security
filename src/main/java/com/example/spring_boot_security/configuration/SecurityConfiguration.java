@@ -1,6 +1,7 @@
 package com.example.spring_boot_security.configuration;
 
 import com.example.spring_boot_security.filter.JwtFilter;
+import com.example.spring_boot_security.handler.AccessDeniedExceptionHandler;
 import com.example.spring_boot_security.handler.JwtAuthEntryPoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -32,11 +33,14 @@ public class SecurityConfiguration {
 
     private final JwtAuthEntryPoint jwtAuthEntryPoint;
 
+    private final AccessDeniedExceptionHandler accessDeniedExceptionHandler;
+
     @Bean
     SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.httpBasic(AbstractHttpConfigurer::disable)
-//                .exceptionHandling((handling) ->
-//                        handling.authenticationEntryPoint(jwtAuthEntryPoint))
+                .exceptionHandling((handling) ->
+                        handling.accessDeniedHandler(accessDeniedExceptionHandler)
+                                .authenticationEntryPoint(jwtAuthEntryPoint))
                 .sessionManagement((management) ->
                         management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .csrf(AbstractHttpConfigurer::disable)
@@ -44,7 +48,9 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests((auth) ->
                         auth.requestMatchers("/login/**").permitAll()
                                 .requestMatchers("/register/**").permitAll()
-                                .anyRequest().authenticated());
+                                .requestMatchers("/resource/**").authenticated()
+//                                .anyRequest().authenticated()
+                );
         httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
